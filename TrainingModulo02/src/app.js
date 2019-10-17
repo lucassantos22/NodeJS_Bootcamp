@@ -1,7 +1,8 @@
 import express from 'express';
 import routes from './routes';
+import './database';
 
-class App{
+class App {
     constructor(){
         this.server = express();
         this.middlewares();
@@ -15,4 +16,4 @@ class App{
     }
 }
 
-export default new App().server;
+export default new App().server
