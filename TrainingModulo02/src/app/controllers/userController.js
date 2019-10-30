@@ -7,17 +7,16 @@ class UserController{
     }
 
     async store(req, res){
-        const emailDuplicated = await User.findOne({where:{email: req.params.email}});
+        const nameDuplicated = await User.findOne({where:{name: req.body.name}});
 
-        if(emailDuplicated){
-            return res.json({'Error': 'E-mail already exists'}).status(401);
+        if(nameDuplicated){
+            return res.json({'Error': 'Name already exists'}).status(401);
         }
 
-        const {id, name, email} = await User.create(req.body);
+        const {id, name} = await User.create(req.body);
         res.json({
             id,
             name,
-            email
         });
     }
 }
