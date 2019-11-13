@@ -4,7 +4,7 @@ import profile from './assets/profile.png'
 import TechList from './components/TechList'
 
 function App(){
-    return <h1>Ola</h1>
+    return <TechList/>
 }
 
 export default App;
