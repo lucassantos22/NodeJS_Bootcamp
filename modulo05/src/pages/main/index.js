@@ -51,18 +51,35 @@ export default class Main extends Component {
     };
 
     handleSubmit = async e => {
-        this.setState({loading: true});
-        e.preventDefault();
-        const response = await Api.get(`/repos/${this.state.newRepo}`);
-        const data = {
-            name: response.data.full_name
-        };
-        this.setState({
-            repositories: [...this.state.repositories, data],
-            newRepo: '',
-            loading: false
-        });
-    }
+        try{
+            for(const repository of this.state.repositories){
+                if(repository.name === this.state.newRepo){
+                    throw new Error('Repositório duplicado');
+                }
+            }
+            this.setState({loading: true});
+            e.preventDefault();
+            let response;
+            try{
+                response = await Api.get(`/repos/${this.state.newRepo}`);
+            }catch (e) {
+                throw new Error('Repositório inválido!');
+            }
+            const data = {
+                name: response.data.full_name
+            };
+            this.setState({
+                repositories: [...this.state.repositories, data],
+            });
+        }catch (e) {
+            alert(e);
+        }finally {
+            this.setState({
+                newRepo: '',
+                loading: false
+            });
+        }
+    };
 
     componentDidMount(state) {
         const repositories = localStorage.getItem('repositories');

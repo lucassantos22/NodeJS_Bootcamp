@@ -11,8 +11,7 @@ export default class Repository extends Component {
            params: propTypes.shape({
                repository: propTypes.string
            })
-        }).isRequired,
-
+        }).isRequired
     };
     async componentDidMount(){
         const {match} = this.props;
